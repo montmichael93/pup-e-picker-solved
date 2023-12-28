@@ -1,26 +1,18 @@
 // you can use this type for react children if you so choose
 import { ReactNode } from "react";
 import { Link } from "react-router-dom";
-import { Dog } from "../types";
+import { ActiveComponent, Dog } from "../types";
 
 export const FunctionalSection = ({
-  allDogs,
-  showNewDogForm,
-  favorited,
-  unfavorited,
-  setShowNewDogForm,
-  setFavorited,
-  setUnfavorited,
+  dogs,
   children,
+  activeComponent,
+  setActiveTabs,
 }: {
-  allDogs: Dog[];
-  showNewDogForm: boolean;
-  favorited: boolean;
-  unfavorited: boolean;
-  setFavorited: (favorited: boolean) => void;
-  setUnfavorited: (unfavorited: boolean) => void;
-  setShowNewDogForm: (shouldShowForm: boolean) => void;
+  dogs: Dog[];
   children: ReactNode;
+  activeComponent: ActiveComponent;
+  setActiveTabs: (tab: ActiveComponent) => void;
 }) => {
   return (
     <section id="main-section">
@@ -32,37 +24,42 @@ export const FunctionalSection = ({
         <div className="selectors">
           {/* This should display the favorited count */}
           <div
-            className={favorited ? `selector active` : `selector`}
+            className={
+              activeComponent === "favorited" ? `selector active` : `selector`
+            }
             onClick={() => {
-              !favorited ? setFavorited(true) : setFavorited(false);
-              unfavorited && setUnfavorited(false);
-              showNewDogForm && setShowNewDogForm(false);
+              activeComponent === "favorited"
+                ? setActiveTabs("all-dogs")
+                : setActiveTabs("favorited");
             }}
           >
-            favorited ({" "}
-            {allDogs.filter((dog) => dog.isFavorite === true).length} )
+            favorited ( {dogs.filter((dog) => dog.isFavorite === true).length} )
           </div>
 
           {/* This should display the unfavorited count */}
           <div
-            className={unfavorited ? `selector active` : `selector`}
+            className={
+              activeComponent === "unfavorited" ? `selector active` : `selector`
+            }
             onClick={() => {
-              !unfavorited ? setUnfavorited(true) : setUnfavorited(false);
-              favorited && setFavorited(false);
-              showNewDogForm && setShowNewDogForm(false);
+              activeComponent === "unfavorited"
+                ? setActiveTabs("all-dogs")
+                : setActiveTabs("unfavorited");
             }}
           >
             unfavorited ({" "}
-            {allDogs.filter((dog) => dog.isFavorite === false).length} )
+            {dogs.filter((dog) => dog.isFavorite === false).length} )
           </div>
           <div
-            className={showNewDogForm ? `selector active` : `selector`}
+            className={
+              activeComponent === "created-dog-form"
+                ? `selector active`
+                : `selector`
+            }
             onClick={() => {
-              !showNewDogForm
-                ? setShowNewDogForm(true)
-                : setShowNewDogForm(false);
-              favorited && setFavorited(false);
-              unfavorited && setUnfavorited(false);
+              activeComponent === "created-dog-form"
+                ? setActiveTabs("all-dogs")
+                : setActiveTabs("created-dog-form");
             }}
           >
             create dog

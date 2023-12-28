@@ -6,3 +6,9 @@ export type Dog = {
   isFavorite: boolean;
   id: number;
 };
+
+export type ActiveComponent =
+  | "favorited"
+  | "unfavorited"
+  | "created-dog-form"
+  | "all-dogs";

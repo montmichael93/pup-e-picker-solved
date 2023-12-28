@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { dogPictures } from "../dog-pictures";
-import { Dog } from "../types";
+import { ActiveComponent, Dog } from "../types";
 import { Requests } from "../api";
 import toast from "react-hot-toast";
 
@@ -9,10 +9,12 @@ const defaultSelectedImage = dogPictures.BlueHeeler;
 
 export const FunctionalCreateDogForm = ({
   isLoading,
+  activeComponents,
   setIsLoading,
   setAllDogs,
 }: {
   isLoading: boolean;
+  activeComponents: ActiveComponent;
   setAllDogs: (allDogs: Dog[]) => void;
   setIsLoading: (loadState: boolean) => void;
 }) => {
@@ -26,6 +28,9 @@ export const FunctionalCreateDogForm = ({
       .then((dogs) => {
         setAllDogs(dogs);
       })
+      .catch((error) => {
+        alert(error);
+      })
       .finally(() => setIsLoading(false));
   };
 
@@ -36,69 +41,73 @@ export const FunctionalCreateDogForm = ({
       .then(() => {
         toast.success("Dog Created!");
       })
+      .catch((error) => {
+        alert(error);
+      })
       .finally(() => setIsLoading(false));
   };
 
   return (
-    <form
-      action=""
-      id="create-dog-form"
-      onSubmit={(e) => {
-        e.preventDefault();
-        postDog({
-          name: nameInput,
-          description: descriptionInput,
-          image: imageInput,
-          isFavorite: false,
-        });
+    <>
+      {activeComponents === "created-dog-form" && (
+        <form
+          action=""
+          id="create-dog-form"
+          onSubmit={(e) => {
+            e.preventDefault();
+            postDog({
+              name: nameInput,
+              description: descriptionInput,
+              image: imageInput,
+              isFavorite: false,
+            });
+            setNameInput("");
+            setDescriptionInput("");
 
-        setNameInput("");
-        setDescriptionInput("");
-        setImageInput("");
-      }}
-    >
-      <h4>Create a New Dog</h4>
-      <label htmlFor="name">Dog Name</label>
-      <input
-        type="text"
-        name="name"
-        value={nameInput}
-        onChange={(e) => {
-          setNameInput(e.target.value);
-        }}
-        disabled={isLoading}
-      />
+            descriptionInput != defaultSelectedImage &&
+              setImageInput(defaultSelectedImage);
+          }}
+        >
+          <h4>Create a New Dog</h4>
+          <label htmlFor="name">Dog Name</label>
+          <input
+            type="text"
+            name="name"
+            value={nameInput}
+            onChange={(e) => {
+              setNameInput(e.target.value);
+            }}
+            disabled={isLoading}
+          />
 
-      <label htmlFor="description">Dog Description</label>
-      <textarea
-        name="description"
-        cols={80}
-        rows={10}
-        placeholder={""}
-        onChange={(e) => {
-          setDescriptionInput(e.target.value);
-        }}
-        disabled={isLoading}
-      ></textarea>
-      <label htmlFor="picture">Select an Image</label>
-      <select
-        onChange={(e) => {
-          setImageInput(e.target.value);
-        }}
-      >
-        {Object.entries(dogPictures).map(([label, pictureValue]) => {
-          return (
-            <option
-              value={pictureValue}
-              key={pictureValue}
-              placeholder={defaultSelectedImage}
-            >
-              {label}
-            </option>
-          );
-        })}
-      </select>
-      <input type="submit" disabled={isLoading} />
-    </form>
+          <label htmlFor="description">Dog Description</label>
+          <textarea
+            name="description"
+            cols={80}
+            rows={10}
+            value={descriptionInput}
+            onChange={(e) => {
+              setDescriptionInput(e.target.value);
+            }}
+            disabled={isLoading}
+          ></textarea>
+          <label htmlFor="picture">Select an Image</label>
+          <select
+            onChange={(e) => {
+              setImageInput(e.target.value);
+            }}
+          >
+            {Object.entries(dogPictures).map(([label, pictureValue]) => {
+              return (
+                <option value={pictureValue} key={pictureValue}>
+                  {label}
+                </option>
+              );
+            })}
+          </select>
+          <input type="submit" disabled={isLoading} />
+        </form>
+      )}
+    </>
   );
 };

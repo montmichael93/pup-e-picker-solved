@@ -8,52 +8,24 @@
       "id": 0
     },
     {
-      "name": "Lee",
-      "image": "/assets/dalmation.png",
-      "description": "before Optimization Modern dearest invoice male Bugatti when",
-      "isFavorite": false,
-      "id": 1
-    },
-    {
       "name": "Carson",
       "image": "/assets/boxer.png",
       "description": "Books Cis program Global technique",
-      "isFavorite": false,
+      "isFavorite": true,
       "id": 2
-    },
-    {
-      "name": "Alexzander",
-      "image": "/assets/dalmation.png",
-      "description": "sweet Brand incremental killer Refined parse sky withdrawal",
-      "isFavorite": false,
-      "id": 3
     },
     {
       "name": "Joel",
       "image": "/assets/dalmation.png",
       "description": "Lira Human during gee bypass",
-      "isFavorite": false,
+      "isFavorite": true,
       "id": 4
-    },
-    {
-      "name": "Bryon",
-      "image": "/assets/blue-heeler.png",
-      "description": "Franc moratorium Diesel neural Accountability North Investor Jo",
-      "isFavorite": false,
-      "id": 5
-    },
-    {
-      "name": "Romaine",
-      "image": "/assets/dalmation.png",
-      "description": "Bespoke interactive blanditiis generating versus Cordoba definition North",
-      "isFavorite": false,
-      "id": 6
     },
     {
       "name": "Gregoria",
       "image": "/assets/corgi.png",
       "description": "monitor kaleidoscopic Northeast Persevering Cotton",
-      "isFavorite": true,
+      "isFavorite": false,
       "id": 7
     },
     {
@@ -62,20 +34,6 @@
       "description": "Southwest leading deposit Extended Elegant throughout Soft Van",
       "isFavorite": false,
       "id": 8
-    },
-    {
-      "name": "Axel",
-      "image": "/assets/cowardly.png",
-      "description": "overriding hefty similique Corporate Colombian Northwest Idaho",
-      "isFavorite": true,
-      "id": 9
-    },
-    {
-      "name": "Rosa",
-      "image": "/assets/chihuahua.avif",
-      "description": "radical South Account rich gee payment Global Celsius",
-      "isFavorite": true,
-      "id": 10
     },
     {
       "name": "Fae",
@@ -95,22 +53,15 @@
       "name": "Lucy",
       "image": "/assets/dalmation.png",
       "description": "microchip connect redefine female Arizona Synergistic swivel SUV",
-      "isFavorite": false,
+      "isFavorite": true,
       "id": 13
     },
     {
       "name": "Fleta",
       "image": "/assets/chihuahua.avif",
       "description": "optical Architect Electric Electronic Hybrid",
-      "isFavorite": true,
-      "id": 14
-    },
-    {
-      "name": "Oma",
-      "image": "/assets/dalmation.png",
-      "description": "bypass Outdoors mmm second Georgia",
       "isFavorite": false,
-      "id": 15
+      "id": 14
     },
     {
       "name": "Joaquin",
@@ -123,7 +74,7 @@
       "name": "Sabryna",
       "image": "/assets/chihuahua.avif",
       "description": "calculating Table since scanner Ferrari South South",
-      "isFavorite": false,
+      "isFavorite": true,
       "id": 17
     },
     {
@@ -139,6 +90,62 @@
       "description": "Namibia Lanthanum Rubber Optimization withdrawal asphalt Villages",
       "isFavorite": false,
       "id": 19
+    },
+    {
+      "name": "kjhklj",
+      "description": "lijlij",
+      "image": "/assets/chihuahua.avif",
+      "isFavorite": false,
+      "id": 21
+    },
+    {
+      "name": "lknjlknm",
+      "description": "lknlkml",
+      "image": "/assets/cowardly.png",
+      "isFavorite": false,
+      "id": 22
+    },
+    {
+      "name": "adfsda",
+      "description": "sdfdsafasdf",
+      "image": "/assets/cowardly.png",
+      "isFavorite": false,
+      "id": 23
+    },
+    {
+      "name": "lhjulij",
+      "description": "lijlijli",
+      "image": "/assets/corgi.png",
+      "isFavorite": false,
+      "id": 24
+    },
+    {
+      "name": "kjhkl",
+      "description": "ljjlj",
+      "image": "/assets/blue-heeler.png",
+      "isFavorite": false,
+      "id": 26
+    },
+    {
+      "name": "kljlkj;l",
+      "description": ";ij;kkl",
+      "image": "/assets/dalmation.png",
+      "isFavorite": false,
+      "id": 27
+    },
+    {
+      "name": "lkjnlj",
+      "description": "lihlkj",
+      "image": "/assets/blue-heeler.png",
+      "isFavorite": false,
+      "id": 28
+    },
+    {
+      "name": "4rfc4r",
+      "description": "e4fr4f",
+      "image": "/assets/blue-heeler.png",
+      "isFavorite": false,
+      "id": 30
     }
   ]
 }
