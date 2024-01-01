@@ -3,15 +3,14 @@ import { FunctionalCreateDogForm } from "./FunctionalCreateDogForm";
 import { FunctionalDogs } from "./FunctionalDogs";
 import { FunctionalSection } from "./FunctionalSection";
 import { ActiveComponent, Dog } from "../types";
+import { Requests } from "../api";
+import toast from "react-hot-toast";
 
 export function FunctionalApp() {
   const [allDogs, setAllDogs] = useState<Dog[]>([]);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [activeComponent, setActiveComponent] =
     useState<ActiveComponent>("all-dogs");
-
-  const getAllDogs = () =>
-    fetch("http://Localhost:3000/dogs").then((response) => response.json());
 
   const favoritedDogs = allDogs.filter((dog) => dog.isFavorite);
   const unfavoritedDogs = allDogs.filter((dog) => !dog.isFavorite);
@@ -24,11 +23,54 @@ export function FunctionalApp() {
 
   useEffect(() => {
     //this function gets called whenever anything inside of b changes
-    getAllDogs().then(setAllDogs);
+    Requests.getAllDogs().then(setAllDogs);
   }, []);
 
-  const setActiveTab = (tabtype: ActiveComponent) => {
-    setActiveComponent(tabtype);
+  const refetchData = () => {
+    setIsLoading(true);
+    return Requests.getAllDogs()
+      .then((dogs) => {
+        console.table(dogs);
+        setAllDogs(dogs);
+        console.table(dogs);
+      })
+      .catch((error) => {
+        alert(error);
+      })
+      .finally(() => setIsLoading(false));
+  };
+
+  const postDog = (dog: Omit<Dog, "id">) => {
+    setIsLoading(true);
+    Requests.postDog(dog)
+      .then(refetchData)
+      .then(() => {
+        toast.success("Dog Created!");
+      })
+      .catch((error) => {
+        alert(error);
+      })
+      .finally(() => setIsLoading(false));
+  };
+
+  const deleteDogEntry = (dogId: number) => {
+    setIsLoading(true);
+    Requests.deleteDog(dogId)
+      .then(refetchData)
+      .catch((error) => {
+        alert(error);
+      })
+      .finally(() => setIsLoading(false));
+  };
+
+  const manageFavorites = (dogIdNumber: number, favoriteStatus: boolean) => {
+    setIsLoading(true);
+    Requests.updateDog(dogIdNumber, favoriteStatus)
+      .then(refetchData)
+      .catch((error) => {
+        alert(error);
+      })
+      .finally(() => setIsLoading(false));
   };
 
   return (
@@ -39,30 +81,19 @@ export function FunctionalApp() {
       <FunctionalSection
         dogs={allDogs}
         activeComponent={activeComponent}
-        setActiveTabs={(tab) => {
-          setActiveTab(tab);
-        }}
+        setActiveTabs={setActiveComponent}
       >
         <FunctionalDogs
           dogs={filteredDogs}
           isLoading={isLoading}
           activeComponents={activeComponent}
-          setAllDogs={(dogs: Dog[]) => {
-            setAllDogs(dogs);
-          }}
-          setIsLoading={(loadState: boolean) => {
-            setIsLoading(loadState);
-          }}
+          deleteDogEntry={deleteDogEntry}
+          manageFavorites={manageFavorites}
         />
         <FunctionalCreateDogForm
-          activeComponents={activeComponent}
-          setAllDogs={(allDogs: Dog[]) => {
-            setAllDogs(allDogs);
-          }}
           isLoading={isLoading}
-          setIsLoading={(loadState: boolean) => {
-            setIsLoading(loadState);
-          }}
+          activeComponents={activeComponent}
+          postDog={postDog}
         />
       </FunctionalSection>
     </div>

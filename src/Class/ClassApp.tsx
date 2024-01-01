@@ -3,6 +3,8 @@ import { ClassSection } from "./ClassSection";
 import { ClassDogs } from "./ClassDogs";
 import { ClassCreateDogForm } from "./ClassCreateDogForm";
 import { ActiveComponent, Dog } from "../types";
+import { Requests } from "../api";
+import toast from "react-hot-toast";
 
 type State = {
   dogs: Dog[] | [];
@@ -17,27 +19,57 @@ export class ClassApp extends Component<Record<string, never>, State> {
     activeComponent: "all-dogs",
   };
 
-  getAllDogs = () =>
-    fetch("http://Localhost:3000/dogs").then((response) => response.json());
-
   componentDidMount() {
-    this.getAllDogs().then((dogs) => {
+    Requests.getAllDogs().then((dogs) => {
       this.setState({ dogs: dogs });
     });
   }
 
-  setAllDogs = (allDogs: Dog[]) => {
-    this.setState({ dogs: allDogs });
+  refetchData = () => {
+    this.setState({ isLoading: true });
+    return Requests.getAllDogs()
+      .then((dogs) => {
+        console.table(dogs);
+        this.setState({ dogs: dogs });
+        console.table(dogs);
+      })
+      .catch((error) => {
+        alert(error);
+      })
+      .finally(() => this.setState({ isLoading: false }));
   };
 
-  setIsLoading = (loadState: boolean) => {
-    loadState
-      ? this.setState({ isLoading: false })
-      : this.setState({ isLoading: true });
+  postDog = (dog: Omit<Dog, "id">) => {
+    this.setState({ isLoading: true });
+    Requests.postDog(dog)
+      .then(this.refetchData)
+      .then(() => {
+        toast.success("Dog Created!");
+      })
+      .catch((error) => {
+        alert(error);
+      })
+      .finally(() => this.setState({ isLoading: false }));
   };
 
-  setActiveTab = (tabtype: ActiveComponent) => {
-    this.setState({ activeComponent: tabtype });
+  deleteDogEntry = (dogId: number) => {
+    this.setState({ isLoading: true });
+    Requests.deleteDog(dogId)
+      .then(this.refetchData)
+      .catch((error) => {
+        alert(error);
+      })
+      .finally(() => this.setState({ isLoading: false }));
+  };
+
+  manageFavorites = (dogIdNumber: number, favoriteStatus: boolean) => {
+    this.setState({ isLoading: true });
+    Requests.updateDog(dogIdNumber, favoriteStatus)
+      .then(this.refetchData)
+      .catch((error) => {
+        alert(error);
+      })
+      .finally(() => this.setState({ isLoading: false }));
   };
 
   render() {
@@ -60,7 +92,7 @@ export class ClassApp extends Component<Record<string, never>, State> {
           dogs={this.state.dogs}
           activeComponent={this.state.activeComponent}
           setActiveTabs={(tab) => {
-            this.setActiveTab(tab);
+            this.setState({ activeComponent: tab });
           }}
         >
           {/* should be inside of the ClassSection component using react children */}
@@ -69,20 +101,14 @@ export class ClassApp extends Component<Record<string, never>, State> {
             dogs={filteredDogs}
             isLoading={this.state.isLoading}
             activeComponents={this.state.activeComponent}
-            setIsLoading={(isLoading) => {
-              this.setIsLoading(isLoading);
-            }}
-            setAllDogs={(dogs: Dog[]) => {
-              this.setAllDogs(dogs);
-            }}
+            deleteDogEntry={this.deleteDogEntry}
+            manageFavorites={this.manageFavorites}
           />
 
           <ClassCreateDogForm
-            activeComponents={this.state.activeComponent}
             isLoading={this.state.isLoading}
-            setAllTheDogs={(allDogs: Dog[]) => {
-              this.setAllDogs(allDogs);
-            }}
+            activeComponents={this.state.activeComponent}
+            postDog={this.postDog}
           />
         </ClassSection>
       </div>

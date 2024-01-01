@@ -1,8 +1,6 @@
 import { Component } from "react";
 import { dogPictures } from "../dog-pictures";
 import { ActiveComponent, Dog } from "../types";
-import { Requests } from "../api";
-import toast from "react-hot-toast";
 
 // use this as your default selected image
 const defaultSelectedImage = dogPictures.BlueHeeler;
@@ -10,7 +8,7 @@ const defaultSelectedImage = dogPictures.BlueHeeler;
 type formProps = {
   isLoading: boolean;
   activeComponents: ActiveComponent;
-  setAllTheDogs: (allDogs: Dog[]) => void;
+  postDog: (dog: Omit<Dog, "id">) => void;
 };
 
 export class ClassCreateDogForm extends Component<formProps> {
@@ -18,28 +16,6 @@ export class ClassCreateDogForm extends Component<formProps> {
     nameInput: "",
     descriptionInput: "",
     imageInput: "",
-  };
-
-  refetchData = () => {
-    this.setState({ isLoading: true });
-    return Requests.getAllDogs()
-      .then((dogs) => {
-        this.props.setAllTheDogs(dogs);
-      })
-      .catch((error) => {
-        alert(error);
-      })
-      .finally(() => this.setState({ isLoading: false }));
-  };
-
-  postDog = (dog: Omit<Dog, "id">) => {
-    this.setState({ isLoading: true });
-    Requests.postDog(dog)
-      .then(this.refetchData)
-      .then(() => {
-        toast.success("Dog Created!");
-      })
-      .finally(() => this.setState({ isLoading: false }));
   };
 
   render() {
@@ -51,15 +27,18 @@ export class ClassCreateDogForm extends Component<formProps> {
             id="create-dog-form"
             onSubmit={(e) => {
               e.preventDefault();
-              this.postDog({
+              this.props.postDog({
                 name: this.state.nameInput,
                 description: this.state.descriptionInput,
-                image: this.state.imageInput,
+                image:
+                  this.state.imageInput === ""
+                    ? defaultSelectedImage
+                    : this.state.imageInput,
                 isFavorite: false,
               });
               this.setState({ nameInput: "" });
               this.setState({ descriptionInput: "" });
-              this.setState({ imageInput: defaultSelectedImage });
+              this.setState({ imageInput: "" });
             }}
           >
             <h4>Create a New Dog</h4>
@@ -79,6 +58,7 @@ export class ClassCreateDogForm extends Component<formProps> {
               name="description"
               cols={80}
               rows={10}
+              value={this.state.descriptionInput}
               onChange={(e) => {
                 this.setState({ descriptionInput: e.target.value });
               }}

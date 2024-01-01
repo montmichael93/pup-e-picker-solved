@@ -1,8 +1,6 @@
 import { useState } from "react";
 import { dogPictures } from "../dog-pictures";
 import { ActiveComponent, Dog } from "../types";
-import { Requests } from "../api";
-import toast from "react-hot-toast";
 
 // use this as your default selected image
 const defaultSelectedImage = dogPictures.BlueHeeler;
@@ -10,42 +8,15 @@ const defaultSelectedImage = dogPictures.BlueHeeler;
 export const FunctionalCreateDogForm = ({
   isLoading,
   activeComponents,
-  setIsLoading,
-  setAllDogs,
+  postDog,
 }: {
   isLoading: boolean;
   activeComponents: ActiveComponent;
-  setAllDogs: (allDogs: Dog[]) => void;
-  setIsLoading: (loadState: boolean) => void;
+  postDog: (dog: Omit<Dog, "id">) => void;
 }) => {
   const [nameInput, setNameInput] = useState("");
   const [descriptionInput, setDescriptionInput] = useState("");
   const [imageInput, setImageInput] = useState("");
-
-  const refetchData = () => {
-    setIsLoading(true);
-    return Requests.getAllDogs()
-      .then((dogs) => {
-        setAllDogs(dogs);
-      })
-      .catch((error) => {
-        alert(error);
-      })
-      .finally(() => setIsLoading(false));
-  };
-
-  const postDog = (dog: Omit<Dog, "id">) => {
-    setIsLoading(true);
-    Requests.postDog(dog)
-      .then(refetchData)
-      .then(() => {
-        toast.success("Dog Created!");
-      })
-      .catch((error) => {
-        alert(error);
-      })
-      .finally(() => setIsLoading(false));
-  };
 
   return (
     <>
@@ -58,14 +29,12 @@ export const FunctionalCreateDogForm = ({
             postDog({
               name: nameInput,
               description: descriptionInput,
-              image: imageInput,
+              image: imageInput === "" ? defaultSelectedImage : imageInput,
               isFavorite: false,
             });
             setNameInput("");
             setDescriptionInput("");
-
-            descriptionInput != defaultSelectedImage &&
-              setImageInput(defaultSelectedImage);
+            setImageInput("");
           }}
         >
           <h4>Create a New Dog</h4>

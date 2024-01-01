@@ -11,14 +11,14 @@
       "name": "Carson",
       "image": "/assets/boxer.png",
       "description": "Books Cis program Global technique",
-      "isFavorite": true,
+      "isFavorite": false,
       "id": 2
     },
     {
       "name": "Joel",
       "image": "/assets/dalmation.png",
       "description": "Lira Human during gee bypass",
-      "isFavorite": true,
+      "isFavorite": false,
       "id": 4
     },
     {
@@ -39,14 +39,14 @@
       "name": "Fae",
       "image": "/assets/corgi.png",
       "description": "Estonia starry 24/365 Hop Rap interface Bronze",
-      "isFavorite": false,
+      "isFavorite": true,
       "id": 11
     },
     {
       "name": "Roma",
       "image": "/assets/chihuahua.avif",
       "description": "sexy siemens navigating female Small copy phooey",
-      "isFavorite": true,
+      "isFavorite": false,
       "id": 12
     },
     {
@@ -60,7 +60,7 @@
       "name": "Fleta",
       "image": "/assets/chihuahua.avif",
       "description": "optical Architect Electric Electronic Hybrid",
-      "isFavorite": false,
+      "isFavorite": true,
       "id": 14
     },
     {
@@ -76,13 +76,6 @@
       "description": "calculating Table since scanner Ferrari South South",
       "isFavorite": true,
       "id": 17
-    },
-    {
-      "name": "Duncan",
-      "image": "/assets/cowardly.png",
-      "description": "Unbranded North Sedan Frozen male",
-      "isFavorite": false,
-      "id": 18
     },
     {
       "name": "Kaylie",
@@ -113,39 +106,39 @@
       "id": 23
     },
     {
-      "name": "lhjulij",
-      "description": "lijlijli",
-      "image": "/assets/corgi.png",
-      "isFavorite": false,
-      "id": 24
-    },
-    {
-      "name": "kjhkl",
-      "description": "ljjlj",
-      "image": "/assets/blue-heeler.png",
-      "isFavorite": false,
-      "id": 26
-    },
-    {
-      "name": "kljlkj;l",
-      "description": ";ij;kkl",
-      "image": "/assets/dalmation.png",
-      "isFavorite": false,
-      "id": 27
-    },
-    {
-      "name": "lkjnlj",
-      "description": "lihlkj",
+      "name": "testing",
+      "description": "testing 123",
       "image": "/assets/blue-heeler.png",
       "isFavorite": false,
       "id": 28
     },
     {
-      "name": "4rfc4r",
-      "description": "e4fr4f",
+      "name": "diggity",
+      "description": "diggity 123",
       "image": "/assets/blue-heeler.png",
       "isFavorite": false,
-      "id": 30
+      "id": 31
+    },
+    {
+      "name": "kjnklj",
+      "description": "lknlkml",
+      "image": "/assets/corgi.png",
+      "isFavorite": false,
+      "id": 32
+    },
+    {
+      "name": "lknlkm",
+      "description": "lknmlkm",
+      "image": "/assets/cowardly.png",
+      "isFavorite": false,
+      "id": 33
+    },
+    {
+      "name": "linklkm",
+      "description": "limpmk",
+      "image": "/assets/dalmation.png",
+      "isFavorite": false,
+      "id": 34
     }
   ]
 }
