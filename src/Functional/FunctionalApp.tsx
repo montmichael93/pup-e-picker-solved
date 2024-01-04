@@ -14,11 +14,17 @@ export function FunctionalApp() {
 
   const favoritedDogs = allDogs.filter((dog) => dog.isFavorite);
   const unfavoritedDogs = allDogs.filter((dog) => !dog.isFavorite);
-  const filteredDogs = (() => {
-    if (activeComponent === "favorited") return favoritedDogs;
-    if (activeComponent === "unfavorited") return unfavoritedDogs;
-    if (activeComponent === "created-dog-form") return [];
-    else return allDogs;
+  const filteredDogs = ((): Dog[] => {
+    switch (activeComponent) {
+      case "all-dogs":
+        return allDogs;
+      case "created-dog-form":
+        return [];
+      case "favorited":
+        return favoritedDogs;
+      case "unfavorited":
+        return unfavoritedDogs;
+    }
   })();
 
   useEffect(() => {
